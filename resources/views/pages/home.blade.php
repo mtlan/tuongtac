@@ -103,8 +103,8 @@
           <div class="content">
             <h3 class="font-weight-500"> <a href="{{URL::TO('/product-detail/'.$product->product_id)}}">{{$product->product_name}}</a></h3>
             <div class="price text-red mb-3">
-              <span class="old">{{$product->price_old}}</span>
-              <span>{{$product->product_price}}</span>
+              <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+              <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
             </div>
             <p>{{$product->product_desc}}</p>
             <div class="count-down-block">
@@ -157,21 +157,30 @@
           @foreach($week_product as $key => $week)
           <div class="single-slide">
             <div class="pm-product">
-              <div class="image">
-                <a href="{{URL::TO('/product-detail/'.$week->product_id)}}"><img src="{{URL::to('public/uploads/product/'.$week->product_image)}}" alt=""></a>
+              <form>
+                @csrf
+                <input type="hidden" value="{{$week->product_id}}" class="cart_product_id_{{$week->product_id}}">
+                <input type="hidden" value="{{$week->product_name}}" class="cart_product_name_{{$week->product_id}}">
+                <input type="hidden" value="{{$week->product_image}}" class="cart_product_image_{{$week->product_id}}">
+                <input type="hidden" value="{{$week->product_price}}" class="cart_product_price_{{$week->product_id}}">
+                <input type="hidden" value="1" class="cart_product_qty_{{$week->product_id}}">
+                <div class="image">
+                  <a href="{{URL::TO('/product-detail/'.$week->product_id)}}"><img src="{{URL::to('public/uploads/product/'.$week->product_image)}}" alt=""></a>
 
-                <span class="onsale-badge">Giảm giá!</span>
-              </div>
-              <div class="content">
-                <h3>{{$week->product_name}}</h3>
-                <div class="price text-red">
-                  <span class="old">{{$week->price_old}}</span>
-                  <span>{{$week->product_price}}</span>
+                  <span class="onsale-badge">Giảm giá!</span>
                 </div>
-                <div class="btn-block">
-                  <a href="cart.html" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>
+                <div class="content">
+                  <h3>{{$week->product_name}}</h3>
+                  <div class="price text-red">
+                    <span class="old">{{number_format($week->price_old,0,'.','.').'₫'}}</span>
+                    <span>{{number_format($week->product_price,0,'.','.').'₫'}}</span>
+                  </div>
+                  <div class="btn-block">
+                    <!-- <button type="button" class="btn btn-outlined btn-rounded" data-id="{{$week->product_id}}" name="themvao">Thêm vào giỏ</button> -->
+                    <a href="{{URL::TO('/product-detail/'.$week->product_id)}}" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
           @endforeach
@@ -201,8 +210,8 @@
               <div class="content">
                 <h3>{{$product->product_name}}</h3>
                 <div class="price text-red">
-                  <span class="old">{{$product->price_old}}</span>
-                  <span>{{$product->product_price}}</span>
+                  <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+                  <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
                 </div>
                 <div class="rating-widget mt--20">
                   <a href="" class="single-rating"><i class="fas fa-star"></i></a>
@@ -212,7 +221,7 @@
                   <a href="" class="single-rating"><i class="far fa-star"></i></a>
                 </div>
                 <div class="btn-block">
-                  <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid">Thêm vào giỏ</a>
+                  <a href="{{URL::TO('/product-detail/'.$week->product_id)}}" class="btn btn-outlined btn-rounded btn-mid">Thêm vào giỏ</a>
                 </div>
               </div>
             </div>
@@ -285,11 +294,11 @@
           <div class="content">
             <h3>{{$month->product_name}}</h3>
             <div class="price text-red">
-              <span class="old">{{$month->price_old}}</span>
-              <span>{{$month->product_price}}</span>
+              <span class="old">{{number_format($month->price_old,0,'.','.').'₫'}}</span>
+              <span>{{number_format($month->product_price,0,'.','.').'₫'}}</span>
             </div>
             <div class="btn-block">
-              <a href="{{URL::TO('cart')}}" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>
+              <a href="{{URL::TO('/product-detail/'.$week->product_id)}}" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>
             </div>
           </div>
         </div>

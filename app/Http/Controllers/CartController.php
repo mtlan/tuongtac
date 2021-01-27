@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect; // redirect giống như return trả v
 session_start();
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Contracts\Session\Session as SessionSession;
 
 class CartController extends Controller
 {
@@ -61,5 +62,44 @@ class CartController extends Controller
     	$qty = $request->quantity_cart;
     	Cart::update($rowId,$qty);
     	return Redirect::to('/show-cart');
-    }
+	}
+	
+	public function add_cart_ajax(Request $request) {
+		$data = $request->all();
+		// print_r($data);
+		$session_id = substr(md5(microtime()),rand(0,26),5);
+		$cart = Session::get('cart');
+		if($cart==true) {
+			$is_avaiable = 0;
+			foreach($cart as $key => $val) {
+				if($vai['product_id']==$data['product_id']){
+					$is_avaiable++;
+				}
+			}
+			if($is_avaiable = 0){
+				$cart[] = array(
+				'session_id' => $session_id,
+				'product_name' => $data['cart_product_name'],
+				'product_id' => $data['cart_product_id'],
+				'product_image' => $data['cart_product_image'],
+				'product_qty' => $data['cart_product_qty'],
+				'product_price' => $data['cart_product_price'],
+				);
+				Session::put('cart',$cart);
+		}else {
+			$cart[] = array(
+				'session_id' => $session_id,
+				'product_name' => $data['cart_product_name'],
+				'product_id' => $data['cart_product_id'],
+				'product_image' => $data['cart_product_image'],
+				'product_qty' => $data['cart_product_qty'],
+				'product_price' => $data['cart_product_price'],
+
+			);
+		}
+		Session::put('cart',$cart);
+		Session::save();
+
+	}
+}
 }

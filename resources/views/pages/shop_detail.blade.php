@@ -46,8 +46,8 @@
                             <div class="content">
                                 <h3 class="font-weight-500"><a href="{{URL::TO('product-detail')}}">{{$product->product_name}}</a></h3>
                                 <div class="price text-red">
-                                    <span class="old">248.000 ₫</span>
-                                    <span>{{$product->product_price}}</span>
+                                    <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+                                    <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
                                 </div>
                                 <div class="btn-block grid-btn">
                                     <a href="{{URL::TO('cart')}}" class="btn btn-outlined btn-rounded btn-mid">Thêm vào giỏ</a>
@@ -62,8 +62,7 @@
                                     </div>
                                     <article>
                                         <h2 class="sr-only d-none">Shop Post Articles</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Nam fringilla augue nec est tristique
-                                            auctor.</p>
+                                        <p>{{$product->product_desc}}</p>
                                     </article>
                                     <div class="btn-block d-flex">
                                         <a href="{{URL::TO('cart')}}" class="btn btn-outlined btn-rounded btn-mid">Thêm vào giỏ</a>
@@ -129,8 +128,8 @@
                                     <span class="single-rating"><i class="far fa-star"></i></span>
                                 </div>
                                 <div class="price text-red">
-                                    <span class="old">{{$product->price_old}}</span>
-                                    <span>{{$product->product_price}}</span>
+                                    <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+                                    <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
                                 </div>
                             </div>
                         </a>

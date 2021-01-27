@@ -111,18 +111,18 @@
                                         
                                             <ul>
                                                 @foreach($content as $v_content)
-                                                <li><span class="left">T{{$v_content->name}}x{{$v_content->qty}}</span><span class="right">
+                                                <li><span class="left">{{$v_content->name}} x {{$v_content->qty}}</span><span class="right">
                                                 <?php
                                                 $subtotal = $v_content->price * $v_content->qty;
-                                                echo number_format($subtotal, 6, '.', ' ') . ' ' . '₫';
+                                                echo number_format($subtotal,0,'.','.').'₫';
                                                 ?></span></li>
                                                 @endforeach
                                             </ul>
 
-                                            <p>Tổng sản phẩm <span>{{number_format(Cart::subtotal(),6,'.', ' ').' '.'₫'}}</span></p>
-                                            <p>Phí vận chuyển <span>00.00 ₫</span></p>
+                                            <p>Tổng sản phẩm <span>{{Cart::subtotal(0,'.','.').'₫'}}</span></p>
+                                            <p>Vận chuyển <span>Miễn phí</span></p>
 
-                                            <h4>Tổng cộng <span>{{number_format(Cart::subtotal(),6,'.', ' ').' '.'₫'}}</span></h4>
+                                            <h4>Tổng cộng <span>{{Cart::subtotal(0,'.','.').'₫'}}</span></h4>
                                             <div class="method-notice mt--25">
                                                 
                                             </div>

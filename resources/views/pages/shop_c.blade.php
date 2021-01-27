@@ -50,8 +50,8 @@
                     <div class="content">
                         <h3 class="font-weight-500"><a href="{{URL::TO('/product-detail/'.$product->product_id)}}">{{$product->product_name}}</a></h3>
                         <div class="price text-red">
-                            <span class="old">{{$product->price_old}}</span>
-                            <span>{{$product->product_price}}</span>
+                            <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+                            <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
                         </div>
                         <div class="btn-block grid-btn">
                             <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid" tabindex="0">Thêm vào giỏ</a>

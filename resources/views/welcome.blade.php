@@ -12,39 +12,15 @@
     <link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/fontawesome.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/themify-icons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/ionicons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/sweetalert.css')}}">
 
     <title>PetMark - Thú cưng mang đến niềm vui</title>
 </head>
 
 <body class="">
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
-
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '88.44'
-                        }
-                    }]
-                });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                });
-            }
-
-
-        }).render('#paypal-button-container');
-    </script>
+    <!-- <script>
+        var usd = document.getElementById("vnd_to_usd").value;
+    </script> -->
     <div class="site-wrapper">
         <header class="header petmark-header-1">
             <div class="header-wrapper">
@@ -82,7 +58,7 @@
                             <div class="col-lg-4 col-md-5 col-sm-8 order-2 order-md-3">
                                 <div class="header-widget-2 text-center text-sm-right ">
                                     <div class="call-widget">
-                                        <p>GỌI CHO TÔI: <i class="icon ion-ios-telephone"></i><span class="font-weight-mid">+91-012
+                                        <p>GỌI CHO TÔI: <i class="fas fa-phone-square-alt"></i><span class="font-weight-mid">+91-012
                                                 345 678</span></p>
                                     </div>
                                     <ul class="header-links">
@@ -92,7 +68,16 @@
                                             if($customer_id != NULL) {
 
                                         ?>
-                                        <li><a href="{{URL::TO('/my-account')}}"><i class="fas fa-user"></i> Đăng xuất</a></li>
+                                        <li><a href="{{URL::TO('/my-account')}}"><i class="fas fa-user"></i>
+                                        <?php
+                                            $name = Session::get('customer_name');  // lấy cái message bên admincontroller
+                                            if($name) {   // nếu tồn tại thì in ra
+                                                //echo $message;
+                                                echo $name;	
+                                                
+                                            }
+                                        ?>
+                                        </a></li>
                                         <?php
                                             }else{
                                         ?>
@@ -168,14 +153,14 @@
                                 <div class="cart-widget-wrapper slide-down-wrapper">
                                     <div class="cart-widget slide-down--btn">
                                         <div class="cart-icon">
-                                            <i class="ion-bag"></i>
+                                            <i class="fas fa-shopping-bag"></i>
                                             <span class="cart-count-badge">
                                                 {{ Cart::count() }}
                                             </span>
                                         </div>
                                         <div class="cart-text">
                                             <span class="d-block">Giỏ hàng</span>
-                                            <strong><span class="amount"><span class="currencySymbol">$</span>40.00</span></strong>
+
                                         </div>
                                     </div>
                                     <div class="slide-down--item ">
@@ -192,7 +177,7 @@
                                                         </div>
                                                         <div class="product-details">
                                                             <h4 class="product-details--title">{{$v_content->qty}} x {{$v_content->name}}</h4>
-                                                            <span class="product-details--price">{{number_format($v_content->price,6,'.', ' ').' '.'₫'}}</span>
+                                                            <span class="product-details--price">{{number_format($v_content->price,0,'.','.').'₫'}}</span>
                                                         </div>
                                                         <a href="{{URL::TO('/delete-cart/'.$v_content->rowId)}}" class="cart-cross">x</a>
                                                     </a>
@@ -201,7 +186,7 @@
                                                 <li class="single-cart">
                                                     <div class="cart-product__subtotal">
                                                         <span class="subtotal--title">Tổng giá</span>
-                                                        <span class="subtotal--price">{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span>
+                                                        <span class="subtotal--price">{{Cart::subtotal(0,'.','.').'₫'}}</span>
                                                     </div>
                                                 </li>
                                                 <li class="single-cart">
@@ -389,6 +374,34 @@
     <script src="{{asset('public/frontend/js/plugins.js')}}"></script>
     <script src="{{asset('public/frontend/js/ajax-mail.js')}}"></script>
     <script src="{{asset('public/frontend/js/custom.js')}}"></script>
+    <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
+    
+    
+    <!-- <script type="text/javascript">
+        $(document).ready(function(){
+            $('.btn-rounded').click(function(){
+                var id = $(this).data('id');
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                
+                $.ajax({
+                    url: '{{url('/add-cart-ajax')}}',
+                    method: 'POST',
+                    data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:
+                        cart_product_image,cart_product_qty:cart_product_qty,cart_product_price:
+                        cart_product_price,_token:_token},
+                    success:function(data) {
+                        alert(data); 
+                    }
+                });
+            });
+        });
+    </script> -->
+    
 
 </body>
 

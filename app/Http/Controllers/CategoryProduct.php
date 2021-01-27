@@ -87,8 +87,8 @@ class CategoryProduct extends Controller
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); // sắp xếp category_id
         
         $category_by_id = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$category_id)->get();
-
-        return view('pages.shop_c')->with('category',$cate_product)->with('category_by_id',$category_by_id);
+        $filter = DB::table('tbl_product')->where('product_status','0')->orderby('product_id','desc')->limit(2)->get();
+        return view('pages.shop_c')->with('category',$cate_product)->with('category_by_id',$category_by_id)->with('filter',$filter);
         
     }
 
@@ -96,8 +96,8 @@ class CategoryProduct extends Controller
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); // sắp xếp category_id
         
         $gory_by_id = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$gory_id)->get();
-
-        return view('pages.shop')->with('category',$cate_product)->with('gory_by_id',$gory_by_id);
+        $filter = DB::table('tbl_product')->where('product_status','0')->orderby('product_id','desc')->limit(2)->get();
+        return view('pages.shop')->with('category',$cate_product)->with('gory_by_id',$gory_by_id)->with('filter',$filter);
         
     }
 

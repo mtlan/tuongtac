@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<span><input type="checkbox" />Nhớ đăng nhập</span>
 			<h6><a href="#">Quên mật khẩu</a></h6>
 				<div class="clearfix"></div>
-				<input type="submit" value="Sign In" name="login">
+				<input type="submit" value="Đăng nhập" name="login">
 		</form>
 		<p>Bạn không có tài khoản ? <a href="registration.html"> Hãy tạo tài khoản</a></p>
 </div>

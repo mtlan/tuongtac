@@ -45,7 +45,16 @@
                                     <h3>Bảng điều khiển</h3>
 
                                     <div class="welcome mb-20">
-                                        <p>Xin chào, <strong>Admin</strong> (If Not <strong>Admin !</strong><a href="{{URL::TO('logout-checkout')}}" class="logout"> Đăng xuất</a>)</p>
+                                        <p>Xin chào, <strong>
+                                        <?php
+                                            $name = Session::get('customer_name');  // lấy cái message bên admincontroller
+                                            if($name) {   // nếu tồn tại thì in ra
+                                                //echo $message;
+                                                echo $name;	
+                                                
+                                            }
+                                        ?>
+                                        </strong></p>
                                     </div>
 
                                     <p class="mb-0">Từ trang tổng quan tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của mình.</p>
@@ -138,7 +147,8 @@
                                     <h3>Địa chỉ thanh toán</h3>
 
                                     <address>
-                                        <p><strong>Admin</strong></p>
+                                        <p><strong><?php
+                                        echo $name?></strong></p>
                                         <p>Nam Kỳ Khởi Nghĩa <br>
                                             Đại học Đà Nẵng Khoa Công Nghệ Thông Tin - Truyền Thông</p>
                                         <p>Số điện thoại: (123) 456-7890</p>

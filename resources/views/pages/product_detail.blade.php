@@ -64,7 +64,7 @@
               <p class="rating-text"><a href="#comment-form">(1 bình luận)</a></p>
             </div>
             <!-- Price -->
-            <p class="price"><span class="old-price">{{$value->price_old}}</span>{{$value->product_price}}</p>
+            <p class="price"><span class="old-price">{{number_format($value->price_old,0,'.','.').'₫'}}</span>{{number_format($value->product_price,0,'.','.').'₫'}}</p>
             <!-- Blog Short Description -->
             <div class="product-short-para">
               <p><span style="font-weight: bold;">Nguồn gốc:</span> {{$value->product_source}}</p>
@@ -166,8 +166,8 @@
                     <span class="single-rating"><i class="fas fa-star-half-alt"></i></span>
                     <span class="single-rating"><i class="far fa-star"></i></span>
                   </div>
-                  <h6 class="author">ADMIN – <span class="font-weight-400">March 23, 2015</span> </h6>
-                  <p>Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi.</p>
+                  <h6 class="author">ADMIN – <span class="font-weight-400">24-01-2021</span> </h6>
+                  <p>Good</p>
                 </div>
               </div>
               <h2 class="title-lg mb--20 pt--15">THÊM MỘT BÀI ĐÁNH GIÁ</h2>
@@ -251,8 +251,8 @@
               <div class="content">
                 <h3>{{$lienquan->product_name}}</h3>
                 <div class="price text-red">
-                  <span class="old">{{$lienquan->price_old}}</span>
-                  <span>{{$lienquan->product_price}}</span>
+                  <span class="old">{{number_format($lienquan->price_old,0,'.','.').'₫'}}</span>
+                  <span>{{number_format($lienquan->product_price,0,'.','.').'₫'}}</span>
                 </div>
                 <div class="btn-block">
                   <a href="{{URL::TO('cart')}}" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>

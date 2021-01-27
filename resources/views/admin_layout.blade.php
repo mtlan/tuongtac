@@ -65,8 +65,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class=" fa fa-suitcase"></i>Hồ sơ</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i> Cài đặt</a></li>
                 <li><a href="{{URL::TO('logout')}}"><i class="fa fa-key"></i>Đăng xuất</a></li>
             </ul>
         </li>
@@ -129,7 +129,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
-	
+	<div class="market-updates">
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-2">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-eye"> </i>
+					</div>
+					 <div class="col-md-8 market-update-left">
+					 <h4>Khách hàng</h4>
+					<h3>20</h3>
+					
+				  </div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-1">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-users" ></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+					<h4>Người dùng</h4>
+						<h3>50</h3>
+						
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-3">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-usd"></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+						<h4>Bán hàng</h4>
+						<h3>1,500</h3>
+						
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-4">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+						<h4>Đơn hàng</h4>
+						<h3>1,500</h3>
+						
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+		   <div class="clearfix"> </div>
+		</div>	
 		@yield('admin_content')
 
 </section>

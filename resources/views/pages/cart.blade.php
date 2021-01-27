@@ -24,6 +24,7 @@
                         <!-- Cart Table -->
                         <?php
                         $content = Cart::content();
+                        
                         ?>
                         {{-- echo '<pre>';
                                 print_r($content);
@@ -49,7 +50,7 @@
                                         <td class="pro-remove"><a href="{{URL::TO('/delete-cart/'.$v_content->rowId)}}"><i class="far fa-trash-alt"></i></a></td>
                                         <td class="pro-thumbnail"><a href="#"><img src="{{URL::to('public/uploads/product/'.$v_content->options->image)}}" alt="Product"></a></td>
                                         <td class="pro-title"><a href="#">{{$v_content->name}}</a></td>
-                                        <td class="pro-price"><span>{{number_format($v_content->price,2,'.', ' ').' '.'₫'}}</span></td>
+                                        <td class="pro-price"><span>{{number_format($v_content->price,0,'.','.').'₫'}}</span></td>
                                         <td class="pro-quantity">
                                             <div class="pro-qty">
 
@@ -61,7 +62,7 @@
                                         <td class="pro-subtotal"><span>
                                                 <?php
                                                 $subtotal = $v_content->price * $v_content->qty;
-                                                echo number_format($subtotal, 2, '.', ' ') . ' ' . '₫';
+                                                echo number_format($subtotal,0,'.','.').'₫';
                                                 ?>
                                             </span></td>
                                     </tr>
@@ -104,8 +105,8 @@
                                 <div class="content">
                                     <h3>{{$product->product_name}}</h3>
                                     <div class="price text-red">
-                                        <span class="old">{{$product->price_old}}</span>
-                                        <span>{{$product->product_price}}</span>
+                                        <span class="old">{{number_format($product->price_old,0,'.','.').'₫'}}</span>
+                                        <span>{{number_format($product->product_price,0,'.','.').'₫'}}</span>
                                     </div>
                                     <div class="btn-block">
                                         <a href="{{URL::TO('cart')}}" class="btn btn-outlined btn-rounded">Thêm vào giỏ</a>
@@ -123,9 +124,9 @@
                     <div class="cart-summary">
                         <div class="cart-summary-wrap">
                             <h4><span>Tóm Tắt Giỏ Hàng</span></h4>
-                            <p>Tổng <span class="text-primary">{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></p>
-                            <p>Giá vận chuyển <span class="text-primary">000.0 ₫</span></p>
-                            <h2>Thành tiền <span class="text-primary">{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></h2>
+                            <p>Tổng <span class="text-primary">{{Cart::subtotal(0,'.','.').'₫'}}</span></p>
+                            <p>Vận chuyển <span class="text-primary">Miễn phí</span></p>
+                            <h2>Thành tiền <span class="text-primary">{{Cart::subtotal(0,'.','.').'₫'}}</span></h2>
                         </div>
 
 

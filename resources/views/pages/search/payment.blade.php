@@ -5,7 +5,7 @@
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{URL::TO('home')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page"></li>
+            <li class="breadcrumb-item active" aria-current="page">Payment</li>
         </ol>
     </div>
 </nav>
@@ -22,7 +22,9 @@
                 <div class="col-12">
                         <!-- Cart Table -->
                         <?php
-                        $content = Cart::content();
+                            use Gloudemans\Shoppingcart\Facades\Cart;
+                            $content = Cart::content();
+                            
                         ?>
                         {{-- echo '<pre>';
                                 print_r($content);
@@ -48,7 +50,7 @@
                                         <td class="pro-remove"><a href="{{URL::TO('/delete-cart/'.$v_content->rowId)}}"><i class="far fa-trash-alt"></i></a></td>
                                         <td class="pro-thumbnail"><a href="#"><img src="{{URL::to('public/uploads/product/'.$v_content->options->image)}}" alt="Product"></a></td>
                                         <td class="pro-title"><a href="#">{{$v_content->name}}</a></td>
-                                        <td class="pro-price"><span>{{number_format($v_content->price,2,'.', ' ').' '.'₫'}}</span></td>
+                                        <td class="pro-price"><span>{{number_format($v_content->price,0,'.','.').'₫'}}</span></td>
                                         <td class="pro-quantity">
                                             <div class="pro-qty">
                                                 <input type="number" class="form-control text-center" name="quantity_cart" value="{{$v_content->qty}}">
@@ -58,7 +60,7 @@
                                         <td class="pro-subtotal"><span>
                                                 <?php
                                                 $subtotal = $v_content->price * $v_content->qty;
-                                                echo number_format($subtotal, 2, '.', ' ') . ' ' . '₫';
+                                                echo number_format($subtotal,0,'.','.').'₫';
                                                 ?>
                                             </span></td>
                                     </tr>
@@ -82,9 +84,9 @@
                     <div class="cart-summary">
                         <div class="cart-summary-wrap">
                             <h4><span>Tóm Tắt Giỏ Hàng</span></h4>
-                            <p>Tổng <span class="text-primary">{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></p>
-                            <p>Giá vận chuyển <span class="text-primary">000.0 ₫</span></p>
-                            <h2>Thành tiền <span class="text-primary">{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></h2>
+                            <p>Tổng <span class="text-primary">{{Cart::subtotal(0,'.','.').'₫'}}</span></p>
+                            <p>Giá vận chuyển <span class="text-primary">Miễn phí</span></p>
+                            <h2>Thành tiền <span class="text-primary">{{Cart::subtotal(0,'.','.').'₫'}}</span></h2>
                         </div>
 
 
@@ -105,22 +107,23 @@
                                             <h4>Sản phẩm <span>Tổng</span></h4>
                                             <?php
                                                 $content = Cart::content();
+                                                
                                             ?>
                                         
                                             <ul>
                                                 @foreach($content as $v_content)
-                                                <li><span class="left">T{{$v_content->name}}x{{$v_content->qty}}</span><span class="right">
+                                                <li><span class="left">{{$v_content->name}} x {{$v_content->qty}}</span><span class="right">
                                                 <?php
                                                 $subtotal = $v_content->price * $v_content->qty;
-                                                echo number_format($subtotal, 2, '.', ' ') . ' ' . '₫';
+                                                echo number_format($subtotal,0,'.','.');
                                                 ?></span></li>
                                                 @endforeach
                                             </ul>
+                                    
+                                            <p>Tổng sản phẩm <span>{{Cart::subtotal(0,'.','.').'₫'}}</span></p>
+                                            <p>Phí vận chuyển <span>Miễn phí</span></p>
 
-                                            <p>Tổng sản phẩm <span>{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></p>
-                                            <p>Phí vận chuyển <span>00.00 ₫</span></p>
-
-                                            <h4>Tổng cộng <span>{{number_format(Cart::subtotal(),2,'.', ' ').' '.'₫'}}</span></h4>
+                                            <h4>Tổng cộng <span>{{Cart::subtotal(0,'.','.').'₫'}}</span></h4>
                                             <div class="method-notice mt--25">
                                             
                                                 <div class="check-box">
@@ -131,7 +134,16 @@
                                                     <input type="checkbox" id="shiping_address" name="payment_option" value="2">
                                                     <label for="shiping_address">Nhận hàng và trả tiền</label>
                                                 </div>
-                                                <div id="paypal-button-container"></div>
+                                                <div class="check-box">
+                                                    <?php
+                                                        // echo $vnd_to_usd = $content->price /23071;
+                                                       
+                                                        $vnd_to_usd =  Cart::subtotal(2,'.','')/23071;
+                                                    ?>
+                                                    <div id="paypal-button" name="payment_option" value="3"></div>
+                                                    <input type="hidden" id="vnd_to_usd" value="{{$vnd_to_usd}}">
+                                                    
+                                                </div>
                                             
                                             </div>
                                             <div class="term-block">
@@ -149,6 +161,53 @@
             </div>
         </div>
     </div>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        paypal.Button.render({
+            env: 'sandbox', // sandbox | production
 
+            client: {
+            sandbox:    'AR2x_AwUJC_zLKAF5zuObfHSThwIcTd5OYcH8A_iqaJq4Ol3HlabKe8C39SVXGJFj9gVDp1UXIMITOkY',
+            production: 'xxxxxxxxxx'
+            },
 
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+            },
+
+        // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+
+        // payment() is called when the button is clicked
+            payment: function(data, actions) {
+            // Make a call to the REST API to set up the payment
+                return actions.payment.create({
+                    transactions: [{
+                        amount: { 
+                            total: `{{ round($vnd_to_usd,2) }}`, 
+                            currency: 'USD' }        
+                    }]  
+                });
+            },
+
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
+                // Make a call to the REST API to execute the payment
+                return actions.payment.execute().then(function() {
+                    <?php
+                        Cart::destroy();    
+                    ?>
+                    location.href="{{URL::TO('home')}}";
+                    window.alert('Cảm ơn bạn đã mua hàng của chúng tôi!');
+                    
+            });
+        }
+    }, '#paypal-button');
+    </script>
+    <script>
+        var usd = document.getElementById("vnd_to_usd").value;
+    </script>
 @endsection

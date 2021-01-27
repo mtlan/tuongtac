@@ -117,6 +117,7 @@ Route::post('/update-product/{pro_id}',[ProductController::class, 'update_Produc
 
 // cart
 Route::post('/save-cart',[CartController::class,'save_cart']);
+Route::post('/add-cart-ajax',[CartController::class,'add_cart_ajax']);
 Route::get('/show-cart',[CartController::class,'show_cart']);
 Route::get('/delete-cart/{rowId}',[CartController::class,'delete_cart']);
 Route::post('/update-cart',[CartController::class,'update_cart']);
